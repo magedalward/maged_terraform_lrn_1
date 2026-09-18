@@ -30,6 +30,7 @@ variable "rg_name" {
   }
 }
 
+
 variable "location" {
   description = "region of the deployment"
   type        = string
@@ -52,6 +53,40 @@ variable "admin_key" {
   type        = string
   default     = null
 }
+
+
+variable "devops_vnet" {
+  description = " virtual network for the development "
+  type        = string
+  validation {
+    condition = startswith(
+      replace(
+        replace(var.devops_vnet, "{project}", var.p_name),
+        "{env}",
+        var.env
+      ),
+      "${var.p_name}-${var.env}-"
+    )
+    error_message = "this reource must start with the correct prefix"
+  }
+}
+
+variable "run_vnet" {
+  description = " virtual network for the runing the full app "
+  type        = string
+  validation {
+    condition = startswith(
+      replace(
+        replace(var.run_vnet, "{project}", var.p_name),
+        "{env}",
+        var.env
+      ),
+      "${var.p_name}-${var.env}-"
+    )
+    error_message = "this reource must start with the correct prefix"
+  }
+}
+
 
 
 
