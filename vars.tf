@@ -55,13 +55,13 @@ variable "admin_key" {
 }
 
 
-variable "devops_vnet" {
+variable "devops_vnet_name" {
   description = " virtual network for the development "
   type        = string
   validation {
     condition = startswith(
       replace(
-        replace(var.devops_vnet, "{project}", var.p_name),
+        replace(var.devops_vnet_name, "{project}", var.p_name),
         "{env}",
         var.env
       ),
@@ -71,13 +71,13 @@ variable "devops_vnet" {
   }
 }
 
-variable "run_vnet" {
+variable "run_vnet_name" {
   description = " virtual network for the runing the full app "
   type        = string
   validation {
     condition = startswith(
       replace(
-        replace(var.run_vnet, "{project}", var.p_name),
+        replace(var.run_vnet_name, "{project}", var.p_name),
         "{env}",
         var.env
       ),
@@ -87,6 +87,14 @@ variable "run_vnet" {
   }
 }
 
+variable "devops_vnet_cidr" {
+  description = "DevOps virtual network address space"
+  type        = string
+}
 
+variable "run_vnet_cidr" {
+  description = "Runtime virtual network address space"
+  type        = string
+}
 
 
